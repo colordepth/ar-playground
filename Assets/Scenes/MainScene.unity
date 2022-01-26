@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementIndicator: {fileID: 556144041}
-  objectToPlace: {fileID: 1905246325588208611, guid: 53e0018ab6f4d024186ab18ef23a802b, type: 3}
+  objectToPlace: {fileID: 8126568285428587551, guid: 53e0018ab6f4d024186ab18ef23a802b, type: 3}
   debugText: {fileID: 223974228}
 --- !u!114 &198089828
 MonoBehaviour:
@@ -211,16 +211,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223974226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -69.236115}
+  m_LocalScale: {x: 2.023405, y: 2.023405, z: 2.023405}
   m_Children: []
   m_Father: {fileID: 909414465}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -685.7644, y: -223.89665}
-  m_SizeDelta: {x: 162.4713, y: 422.4633}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 281.60114, y: -468.57907}
+  m_SizeDelta: {x: 262.4713, y: 422.4633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223974228
 MonoBehaviour:
@@ -244,7 +244,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -483,8 +483,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815150975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -36}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -35.972225}
+  m_LocalScale: {x: 2.2026, y: 2.2026, z: 2.2026}
   m_Children:
   - {fileID: 1293466574}
   m_Father: {fileID: 909414465}
@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -142.5, y: 48.9}
+  m_AnchoredPosition: {x: -216.72366, y: 68.54419}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &815150977
@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 888922422}
   - component: {fileID: 888922424}
   - component: {fileID: 888922425}
+  - component: {fileID: 888922431}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -663,6 +664,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 0}
   m_DetectionMode: 1
+--- !u!114 &888922431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888922421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PointCloudPrefab: {fileID: 4427760746405552188, guid: ac27482e212499b49be9447df2012dae, type: 3}
 --- !u!1 &909414464
 GameObject:
   m_ObjectHideFlags: 0

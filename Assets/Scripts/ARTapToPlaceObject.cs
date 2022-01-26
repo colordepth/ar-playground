@@ -10,7 +10,7 @@ using System;
 public class ARTapToPlaceObject : MonoBehaviour
 {
     public GameObject placementIndicator;
-    public GamePiece objectToPlace;
+    public GameObject objectToPlace;
     public Text debugText;
     private ARRaycastManager raycastManager;
     private ARPlaneManager planeManager;
@@ -32,9 +32,11 @@ public class ARTapToPlaceObject : MonoBehaviour
                 UpdatePlacementPose();
                 UpdatePlacementIndicator();
 
-                if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    PlaceObject();
+                    // Try to append cube. If it fails, place a new cube
+                    if (AppendCube() == false && placementPoseIsValid)
+                        PlaceObject();
                 }
 
                 break;
@@ -46,20 +48,13 @@ public class ARTapToPlaceObject : MonoBehaviour
                 }
                 break;
 
-            case ModeHandler.Mode.APPEND:
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-                {
-                    AppendCube();
-                }
-                break;
-
             default:
                 break;
         }
 
     }
 
-    private void AppendCube()
+    private bool AppendCube()
     {
         Ray ray = Camera.current.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -72,15 +67,17 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             System.Random rand = new System.Random();
 
-            direction *= 0.9f;
-            direction *= hit.collider.bounds.size.x;
+            direction *= 0.05f; // hit.collider.bounds.size.x;
 
             Vector3 newPos = obj.transform.position + direction;
 
-            GamePiece obj2 = Instantiate(objectToPlace, newPos, obj.transform.rotation);
+            GameObject obj2 = Instantiate(objectToPlace, newPos, obj.transform.rotation);
 
             debugText.text += obj.transform.position.ToString() + " " + newPos.ToString() + "\n";
+
+            return true;
         }
+        return false;
     }
 
     private void Pickup()

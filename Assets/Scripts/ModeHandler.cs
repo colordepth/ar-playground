@@ -9,8 +9,7 @@ public class ModeHandler : MonoBehaviour
     public enum Mode
     {
         PLACE,
-        PICKUP,
-        APPEND
+        PICKUP
     }
 
     public Mode mode = Mode.PLACE;
@@ -34,10 +33,6 @@ public class ModeHandler : MonoBehaviour
             buttonText.text = "Switch to Pickup Mode";
         }
         else if (mode == Mode.PICKUP)
-        {
-            buttonText.text = "Switch to Append Mode";
-        }
-        else if (mode == Mode.APPEND)
         {
             buttonText.text = "Switch to Place Mode";
         }
