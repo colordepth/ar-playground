@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/HomeScreen.unity
+    guid: 7e7c428fc97c875448040071c5212252
+  - enabled: 1
+    path: Assets/Scenes/Minecraft.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 2d4a113b369f8d145b45b0cfce4518f5, type: 2}

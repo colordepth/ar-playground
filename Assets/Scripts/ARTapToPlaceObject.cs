@@ -6,11 +6,20 @@ using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
 public class ARTapToPlaceObject : MonoBehaviour
 {
     public GameObject placementIndicator;
-    public GameObject objectToPlace;
+
+    public GameObject objectCube;
+    public GameObject objectCylinder;
+    public GameObject objectCone;
+
+    public List<Material> woodMaterials;
+
+    private GameObject objectToPlace;
+
     public Text debugText;
     private ARRaycastManager raycastManager;
     private ARPlaneManager planeManager;
@@ -26,23 +35,37 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
-        switch (ModeHandler.instance.mode)
+        switch (MinecraftUI.instance.mode)
         {
-            case ModeHandler.Mode.PLACE:
+            case MinecraftUI.Mode.PLACE:
                 UpdatePlacementPose();
                 UpdatePlacementIndicator();
 
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
                 {
-                    // Try to append cube. If it fails, place a new cube
+                    switch (MinecraftUI.instance.objectType)
+                    {
+                        case MinecraftUI.Object.CUBE:
+                            objectToPlace = objectCube;
+                            break;
+                        case MinecraftUI.Object.CONE:
+                            objectToPlace = objectCone;
+                            break;
+                        case MinecraftUI.Object.CYLINDER:
+                            objectToPlace = objectCylinder;
+                            break;
+                        default:
+                            break;
+                    }
+                    // Try to append object. If it fails, place a new object on AR Plane
                     if (AppendCube() == false && placementPoseIsValid)
                         PlaceObject();
                 }
 
                 break;
 
-            case ModeHandler.Mode.PICKUP:
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            case MinecraftUI.Mode.PICKUP:
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
                 {
                     Pickup();
                 }
@@ -67,13 +90,16 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             System.Random rand = new System.Random();
 
-            direction *= 0.05f; // hit.collider.bounds.size.x;
+            direction *= 1f; // hit.collider.bounds.size.x;
 
             Vector3 newPos = obj.transform.position + direction;
 
             GameObject obj2 = Instantiate(objectToPlace, newPos, obj.transform.rotation);
 
             debugText.text += obj.transform.position.ToString() + " " + newPos.ToString() + "\n";
+
+            if (obj2.GetComponent<BoxCollider>() != null)     // if of type box, randomize wooden material
+                obj2.GetComponent<Renderer>().material = woodMaterials[rand.Next(0, 3)];
 
             return true;
         }
@@ -88,6 +114,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             debugText.text += "Raycast success!\n";
+            debugText.text += hit.collider.gameObject.name + "\n";
             hit.collider.gameObject.SetActive(false);
         }
     }
@@ -114,6 +141,22 @@ public class ARTapToPlaceObject : MonoBehaviour
             return;
 
         var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+
+        Ray ray = Camera.current.ScreenPointToRay(screenCenter);
+        RaycastHit hit;
+
+        // If there is a object in line of sight, cant place another object.
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            GameObject obj = hit.collider.gameObject;
+
+            if (obj.name.StartsWith("GameCube") || obj.name.StartsWith("GameSphere") || obj.name.StartsWith("GameCylinder"))
+            {
+                placementPoseIsValid = false;
+                return;
+            }
+        }
+
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
         
         raycastManager.Raycast(screenCenter, hits, planeDetectionMode);
