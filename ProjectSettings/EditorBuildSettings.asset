@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minecraft.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/RedGreenBin.unity
+    guid: 88957b1bd6465f64ea24bb983d4dce61
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 2d4a113b369f8d145b45b0cfce4518f5, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5f0f10d895feb6f4291d69aa5b64a078, type: 2}

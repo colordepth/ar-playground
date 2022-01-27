@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
-using System;
 using UnityEngine.EventSystems;
 
 public class ARTapToPlaceObject : MonoBehaviour
@@ -15,6 +12,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     public GameObject objectCube;
     public GameObject objectCylinder;
     public GameObject objectCone;
+    public GameObject objectBasket;
 
     public List<Material> woodMaterials;
 
