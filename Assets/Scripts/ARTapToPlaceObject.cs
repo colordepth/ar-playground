@@ -15,8 +15,14 @@ public class ARTapToPlaceObject : MonoBehaviour
     public GameObject objectBasket;
 
     public List<Material> woodMaterials;
+    public Material metalMat;
 
     private GameObject objectToPlace;
+    private Color[] colors = new Color[] { Color.blue, Color.red, Color.green, Color.yellow };
+    private int bowlsPlaced = 0;
+    private int objectsPlaced = 0;
+
+    private GameObject objectHeld = null;
 
     public Text debugText;
     private ARRaycastManager raycastManager;
@@ -33,46 +39,85 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
-        switch (MinecraftUI.instance.mode)
-        {
-            case MinecraftUI.Mode.PLACE:
-                UpdatePlacementPose();
-                UpdatePlacementIndicator();
+        if (MinecraftUI.instance)
+            switch (MinecraftUI.instance.mode)
+            {
+                case MinecraftUI.Mode.PLACE:
+                    UpdatePlacementPose();
+                    UpdatePlacementIndicator();
 
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
-                {
-                    switch (MinecraftUI.instance.objectType)
+                    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
                     {
-                        case MinecraftUI.Object.CUBE:
-                            objectToPlace = objectCube;
-                            break;
-                        case MinecraftUI.Object.CONE:
-                            objectToPlace = objectCone;
-                            break;
-                        case MinecraftUI.Object.CYLINDER:
-                            objectToPlace = objectCylinder;
-                            break;
-                        default:
-                            break;
+                        switch (MinecraftUI.instance.objectType)
+                        {
+                            case MinecraftUI.Object.CUBE:
+                                objectToPlace = objectCube;
+                                break;
+                            case MinecraftUI.Object.CONE:
+                                objectToPlace = objectCone;
+                                break;
+                            case MinecraftUI.Object.CYLINDER:
+                                objectToPlace = objectCylinder;
+                                break;
+                            default:
+                                break;
+                        }
+                        // Try to append object. If it fails, place a new object on AR Plane
+                        if (AppendCube() == false && placementPoseIsValid)
+                            PlaceObject();
                     }
-                    // Try to append object. If it fails, place a new object on AR Plane
-                    if (AppendCube() == false && placementPoseIsValid)
+
+                    break;
+
+                case MinecraftUI.Mode.PICKUP:
+                    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
+                    {
+                        Pickup();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        else if (RedGreenBinUI.instance)
+            switch (RedGreenBinUI.instance.mode)
+            {
+                case RedGreenBinUI.Mode.PLACEBASKET:
+                    UpdatePlacementPose();
+                    UpdatePlacementIndicator();
+                    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
+                    {
+                        objectToPlace = objectBasket;
                         PlaceObject();
-                }
+                    }
+                    break;
 
-                break;
+                case RedGreenBinUI.Mode.PLACEOBJECT:
+                    UpdatePlacementPose();
+                    UpdatePlacementIndicator();
+                    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
+                    {
+                        if (objectsPlaced < 4)
+                            objectToPlace = objectCube;
+                        else
+                            objectToPlace = objectCone;
 
-            case MinecraftUI.Mode.PICKUP:
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
-                {
-                    Pickup();
-                }
-                break;
+                        PlaceObject();
+                    }
+                    break;
 
-            default:
-                break;
-        }
+                case RedGreenBinUI.Mode.PICKUP:
+                    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.layer != 5))
+                    {
+                        Pickup();
+                        if (objectsPlaced == 0)
+                            RedGreenBinUI.instance.winPanel.SetActive(true);
+                    }
+                    break;
 
+                default:
+                    break;
+            }
     }
 
     private bool AppendCube()
@@ -113,14 +158,64 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             debugText.text += "Raycast success!\n";
             debugText.text += hit.collider.gameObject.name + "\n";
+        }
+
+        if (MinecraftUI.instance)
+        {
             hit.collider.gameObject.SetActive(false);
+        }
+
+        else if (RedGreenBinUI.instance)
+        {
+            if ((hit.collider.gameObject.GetComponent<BoxCollider>() || hit.collider.gameObject.GetComponent<SphereCollider>()) && objectHeld == null)
+            {
+                // Clicked on a non-bowl object
+                objectHeld = hit.collider.gameObject;
+                objectHeld.SetActive(false);
+                debugText.text += "Picked up " + objectHeld.GetComponent<Renderer>().material.color.ToString() + "\n";
+                RedGreenBinUI.instance.inventory.color = objectHeld.GetComponent<Renderer>().material.color;
+            }
+            else if (hit.collider.gameObject.GetComponent<MeshCollider>())
+            {
+                debugText.text += "Clicked on bowl " + hit.collider.gameObject.GetComponent<Renderer>().material.color.ToString() + "\n";
+                if (objectHeld.GetComponent<Renderer>().material.color == hit.collider.gameObject.GetComponent<Renderer>().material.color)
+                {
+                    // if color of object and bowl match
+                    debugText.text += "Colors match!\n";
+                    objectHeld.SetActive(true);
+                    objectHeld.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                    objectHeld.gameObject.transform.position = Camera.current.transform.position;
+                    objectHeld = null;
+                    RedGreenBinUI.instance.inventory.color = Color.white;
+                    objectsPlaced--;
+                    RedGreenBinUI.instance.successPanel.SetActive(true);
+                }
+                else
+                    RedGreenBinUI.instance.failurePanel.SetActive(true);
+            }
+            else
+                debugText.text += "Clicked on weird object!\n";
         }
     }
 
     private void PlaceObject()
     {
         debugText.text += "Object placed\n";
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        GameObject obj = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        if (RedGreenBinUI.instance)
+        {
+            obj.GetComponent<Renderer>().material.CopyPropertiesFromMaterial(metalMat);
+            if (RedGreenBinUI.instance.mode == RedGreenBinUI.Mode.PLACEBASKET)
+                obj.GetComponent<Renderer>().material.color = colors[bowlsPlaced++];
+            else if (RedGreenBinUI.instance.mode == RedGreenBinUI.Mode.PLACEOBJECT)
+                obj.GetComponent<Renderer>().material.color = colors[(objectsPlaced++)%4];
+
+            if (bowlsPlaced == 4)
+                RedGreenBinUI.instance.mode = RedGreenBinUI.Mode.PLACEOBJECT;
+
+            if (objectsPlaced == 8)
+                RedGreenBinUI.instance.mode = RedGreenBinUI.Mode.PICKUP;
+        }
     }
 
     private void UpdatePlacementIndicator()

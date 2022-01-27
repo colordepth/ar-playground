@@ -6,7 +6,16 @@ using UnityEngine.XR.ARFoundation;
 
 public class RedGreenBinUI : MonoBehaviour
 {
+    public enum Mode
+    {
+        PLACEBASKET,
+        PLACEOBJECT,
+        PICKUP
+    }
+
     public static RedGreenBinUI instance;
+
+    public Mode mode = Mode.PLACEBASKET;
 
     public GameObject initializePanel;
     public GameObject exitPanel;
@@ -21,6 +30,7 @@ public class RedGreenBinUI : MonoBehaviour
     {
         instance = this;
         initializePanel.SetActive(true);
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
     public void OnClickBack()

@@ -294,6 +294,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7fcfac62b5d07884ca0987363723305b, type: 2}
   - {fileID: 2100000, guid: bc0e227d60e8dd74e90b71f0cadb2382, type: 2}
   - {fileID: 2100000, guid: 335e031a7a414ba4bb788295ac47706b, type: 2}
+  metalMat: {fileID: 2100000, guid: 4e93213bd96815742867ad1b38773378, type: 2}
   debugText: {fileID: 223974228}
 --- !u!114 &198089828
 MonoBehaviour:
@@ -307,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78d4048c35fd474c9cbd05e6dedd227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   initializePanel: {fileID: 6192533792297657302}
   exitPanel: {fileID: 4756041289874881517}
   successPanel: {fileID: 7962745957468974144}
@@ -774,7 +776,7 @@ Transform:
   m_GameObject: {fileID: 888922421}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 13, y: 13, z: 13}
   m_Children:
   - {fileID: 956649524}
   m_Father: {fileID: 0}
@@ -1421,7 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2252,7 +2254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
