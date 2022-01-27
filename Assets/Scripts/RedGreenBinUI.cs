@@ -18,6 +18,8 @@ public class RedGreenBinUI : MonoBehaviour
     public Mode mode = Mode.PLACEBASKET;
 
     public GameObject initializePanel;
+    public GameObject placeObjectsPanel;
+    public GameObject startGamePanel;
     public GameObject exitPanel;
     public GameObject successPanel;
     public GameObject failurePanel;
@@ -41,6 +43,8 @@ public class RedGreenBinUI : MonoBehaviour
     public void OnClickContinue()
     {
         initializePanel.SetActive(false);
+        placeObjectsPanel.SetActive(false);
+        startGamePanel.SetActive(false);
         exitPanel.SetActive(false);
         successPanel.SetActive(false);
         failurePanel.SetActive(false);
@@ -49,6 +53,7 @@ public class RedGreenBinUI : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        instance = null;
         SceneManager.LoadScene("HomeScreen");
     }
 }

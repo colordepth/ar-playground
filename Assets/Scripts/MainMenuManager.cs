@@ -19,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickWheresTheButton()
     {
-
+        SceneManager.LoadScene("WheresP");
     }
 
     public void OnClickFunWithNumbers()
@@ -29,6 +29,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickQuit()
     {
-
+        Application.Quit();
     }
 }

@@ -28,6 +28,10 @@ public class MinecraftUI : MonoBehaviour
     public Image BombImage;
 
     public GameObject shapeMenu;
+    public GameObject colorMainButton;
+    public GameObject colorMenu;
+
+    public Color objectColor = Color.yellow;
 
     private Color colorInactive = new Color(0.34f, 0.34f, 0.34f);
     private Color colorActive = new Color(1, 1, 1);
@@ -82,6 +86,7 @@ public class MinecraftUI : MonoBehaviour
 
     public void OnClickBack()
     {
+        instance = null;
         SceneManager.LoadScene("HomeScreen");
         //SceneManager.UnloadScene("Minecraft");
     }
@@ -107,5 +112,36 @@ public class MinecraftUI : MonoBehaviour
     {
         objectType = Object.CONE;
         shapeMenu.SetActive(false);
+    }
+
+    public void OnClickColorMainButton()
+    {
+        bool isColorMenuOpen = colorMenu.activeSelf;
+        colorMenu.SetActive(!isColorMenuOpen);
+        colorMainButton.SetActive(isColorMenuOpen);
+    }
+
+    public void OnClickRed()
+    {
+        objectColor = Color.red;
+        OnClickColorMainButton();
+    }
+
+    public void OnClickGreen()
+    {
+        objectColor = Color.green;
+        OnClickColorMainButton();
+    }
+
+    public void OnClickBlue()
+    {
+        objectColor = Color.blue;
+        OnClickColorMainButton();
+    }
+
+    public void OnClickYellow()
+    {
+        objectColor = Color.yellow;
+        OnClickColorMainButton();
     }
 }
