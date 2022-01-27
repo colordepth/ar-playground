@@ -1,7 +1,7 @@
 # AR Playground
 
-A learning environment for children in AR. Made with Unity3D for Android using Unity XR Foundation.
-Submitted to #TechForGood Hackathon by Enactus India and Openweaver.
+A learning environment for children in AR. Made with Unity3D for Android using Unity XR Foundation. <br/>
+Submitted to [#TechForGood](https://enactustechforgood.openweaver.com/) Hackathon by [Enactus India](https://enactus.org/who-we-are/our-story/) and [Openweaver](https://www.openweaver.com/about-us.html).
 
 Kandi link: [to be updated]()
 
@@ -23,20 +23,20 @@ Steps to build:
 
 ## Game modes
 
-### Building Blocks
+### Do It Yourself ~ (_Building Blocks_)
 
 
 ![BuildingBlocks1](https://user-images.githubusercontent.com/88599943/151415587-a4826bff-8661-4e8d-a6dd-6621e2bf05c8.png)
 ![BuildingBlocks2](https://user-images.githubusercontent.com/88599943/151416826-99a1b8b8-8f0c-4006-90d0-620d35d743ec.jpeg)
 
 
-### Color Sort
+### Red Green Blue ~ (_Color Sort_)
 
 
 https://user-images.githubusercontent.com/88599943/151438014-6fdada5f-c843-45c1-97be-7fb22d63a339.mp4
 
 
-### Alphabet Riddle
+### Where is the letter P? ~ (_Alphabet Riddle_)
 
 
 
