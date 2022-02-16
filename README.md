@@ -3,8 +3,10 @@
 A learning environment for children in AR. Made with Unity3D for Android using Unity XR Foundation. <br/>
 Submitted to [#TechForGood](https://enactustechforgood.openweaver.com/) Hackathon by [Enactus India](https://enactus.org/who-we-are/our-story/) and [Openweaver](https://www.openweaver.com/about-us.html).
 
+Wiki: [Github Wiki](https://github.com/colordepth/ar-playground/wiki)<br/>
 Kandi Submission: [Kandi Link](https://kandi.openweaver.com/collections/techforgood2022/ar-playground)<br/>
-Video Submission: [Youtube Link](https://youtu.be/Yo8xyBJ2Za8)
+Video Submission: [Youtube Link](https://youtu.be/Yo8xyBJ2Za8)<br/>
+
 
 ## Quick Install
 Find android APK in the latest [release](https://github.com/colordepth/ar-playground/releases/tag/v0.1.0-alpha).
