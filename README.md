@@ -3,10 +3,10 @@
 A learning environment for children in AR. Made with Unity3D for Android using Unity XR Foundation. <br/>
 Submitted to [#TechForGood](https://enactustechforgood.openweaver.com/) Hackathon by [Enactus India](https://enactus.org/who-we-are/our-story/) and [Openweaver](https://www.openweaver.com/about-us.html).
 
-Team Members:
-Deep Sharma
-Prakhar Bhargava
-Cyrus Monteiro
+Hackathon Team Members: <br/>
+Deep Sharma <br/>
+Prakhar Bhargava <br/>
+Cyrus Monteiro <br/>
 
 
 Wiki: [Github Wiki](https://github.com/colordepth/ar-playground/wiki)<br/>
